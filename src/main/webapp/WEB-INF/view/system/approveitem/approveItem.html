@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>进件详情管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <#NameCon id="condition" name="名称" />
+                            </div>
+                            <div class="col-sm-3">
+                                <#button name="搜索" icon="fa-search" clickFun="ApproveItem.search()"/>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="ApproveItemTableToolbar" role="group">
+                            @if(shiro.hasPermission("/approveItem/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="ApproveItem.openAddApproveItem()"/>
+                            @}
+                            @if(shiro.hasPermission("/approveItem/update")){
+                                <#button name="修改" icon="fa-plus" clickFun="ApproveItem.openApproveItemDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/approveItem/delete")){
+                                <#button name="删除" icon="fa-plus" clickFun="ApproveItem.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="ApproveItemTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/approveItem/approveItem.js"></script>
+@}

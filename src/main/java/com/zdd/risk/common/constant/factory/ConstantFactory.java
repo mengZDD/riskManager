@@ -3,9 +3,7 @@ package com.zdd.risk.common.constant.factory;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.zdd.risk.common.constant.cache.Cache;
 import com.zdd.risk.common.constant.cache.CacheKey;
-import com.zdd.risk.common.constant.state.ManagerStatus;
-import com.zdd.risk.common.constant.state.MenuStatus;
-import com.zdd.risk.common.constant.state.Sex;
+import com.zdd.risk.common.constant.state.*;
 import com.zdd.risk.common.persistence.dao.*;
 import com.zdd.risk.core.log.LogObjectHolder;
 import com.zdd.risk.core.support.StrKit;
@@ -214,6 +212,28 @@ public class ConstantFactory {
      */
     public String getSexName(Integer sex) {
         return Sex.valueOf(sex);
+    }
+
+    public String getGuaranteeName(Integer guarantee){
+
+        return Guarantee.valueOf(guarantee);
+    }
+    public String getStatusShenName(Integer status){
+
+        return Status.valueOf(status);
+    }
+
+    public String getPeopleName(Integer people){
+
+        return People.valueOf(people);
+    }
+    public String getAccreditName(Integer accredit){
+
+        return Accredit.valueOf(accredit);
+    }
+    public String getCreditName(Integer credit){
+
+        return Credit.valueOf(credit);
     }
 
     /**

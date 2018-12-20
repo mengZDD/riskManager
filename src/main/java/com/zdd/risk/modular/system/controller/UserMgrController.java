@@ -1,5 +1,6 @@
 package com.zdd.risk.modular.system.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.zdd.risk.common.annotion.Permission;
 import com.zdd.risk.common.annotion.log.BussinessLog;
 import com.zdd.risk.common.constant.Const;
@@ -157,10 +158,11 @@ public class UserMgrController extends BaseController {
      * 查询管理员列表
      */
     @RequestMapping("/list")
-    @Permission
+    @Permission(Const.ADMIN_NAME)
     @ResponseBody
     public Object list(@RequestParam(required = false) String name, @RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime) {
         List<Map<String, Object>> users = managerDao.selectUsers(name, beginTime, endTime);
+        System.out.println(new UserWarpper(users).warp());
         return new UserWarpper(users).warp();
     }
 

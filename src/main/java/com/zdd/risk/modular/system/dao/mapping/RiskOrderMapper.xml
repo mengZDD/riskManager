@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdd.risk.modular.system.dao.RiskOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.zdd.risk.common.persistence.model.RiskOrder" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="months" property="months" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="market" property="market" jdbcType="INTEGER" />
+    <result column="deposit" property="deposit" jdbcType="INTEGER" />
+    <result column="premium" property="premium" jdbcType="INTEGER" />
+    <result column="free_ratio" property="freeRatio" jdbcType="INTEGER" />
+    <result column="surplus_ratio" property="surplusRatio" jdbcType="INTEGER" />
+    <result column="guarantee" property="guarantee" jdbcType="INTEGER" />
+    <result column="period_cost" property="periodCost" jdbcType="INTEGER" />
+    <result column="periods" property="periods" jdbcType="TINYINT" />
+    <result column="left_periods" property="leftPeriods" jdbcType="TINYINT" />
+    <result column="buyout_cost" property="buyoutCost" jdbcType="INTEGER" />
+    <result column="credit_cost" property="creditCost" jdbcType="INTEGER" />
+    <result column="periods2" property="periods2" jdbcType="INTEGER" />
+    <result column="period_cost2" property="periodCost2" jdbcType="INTEGER" />
+    <result column="buyout_cost2" property="buyoutCost2" jdbcType="INTEGER" />
+    <result column="creattime" property="creattime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zdd.risk.common.persistence.model.RiskOrder" extends="BaseResultMap" >
+    <result column="address" property="address" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cid, orderid, userid, username, tel, months, money, brand, model, type, product_name, 
+    market, deposit, premium, free_ratio, surplus_ratio, guarantee, period_cost, periods, 
+    left_periods, buyout_cost, credit_cost, periods2, period_cost2, buyout_cost2, creattime
+  </sql>
+  <sql id="Blob_Column_List" >
+    address
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zdd.risk.common.persistence.model.RiskOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from risk_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdd.risk.common.persistence.model.RiskOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from risk_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from risk_order
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from risk_order
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdd.risk.common.persistence.model.RiskOrderExample" >
+    delete from risk_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdd.risk.common.persistence.model.RiskOrder" >
+    insert into risk_order (cid, orderid, userid, 
+      username, tel, months, 
+      money, brand, model, 
+      type, product_name, market, 
+      deposit, premium, free_ratio, 
+      surplus_ratio, guarantee, period_cost, 
+      periods, left_periods, buyout_cost, 
+      credit_cost, periods2, period_cost2, 
+      buyout_cost2, creattime, address
+      )
+    values (#{cid,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{months,jdbcType=INTEGER}, 
+      #{money,jdbcType=INTEGER}, #{brand,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{market,jdbcType=INTEGER}, 
+      #{deposit,jdbcType=INTEGER}, #{premium,jdbcType=INTEGER}, #{freeRatio,jdbcType=INTEGER}, 
+      #{surplusRatio,jdbcType=INTEGER}, #{guarantee,jdbcType=INTEGER}, #{periodCost,jdbcType=INTEGER}, 
+      #{periods,jdbcType=TINYINT}, #{leftPeriods,jdbcType=TINYINT}, #{buyoutCost,jdbcType=INTEGER}, 
+      #{creditCost,jdbcType=INTEGER}, #{periods2,jdbcType=INTEGER}, #{periodCost2,jdbcType=INTEGER}, 
+      #{buyoutCost2,jdbcType=INTEGER}, #{creattime,jdbcType=VARCHAR}, #{address,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdd.risk.common.persistence.model.RiskOrder" >
+    insert into risk_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="months != null" >
+        months,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="market != null" >
+        market,
+      </if>
+      <if test="deposit != null" >
+        deposit,
+      </if>
+      <if test="premium != null" >
+        premium,
+      </if>
+      <if test="freeRatio != null" >
+        free_ratio,
+      </if>
+      <if test="surplusRatio != null" >
+        surplus_ratio,
+      </if>
+      <if test="guarantee != null" >
+        guarantee,
+      </if>
+      <if test="periodCost != null" >
+        period_cost,
+      </if>
+      <if test="periods != null" >
+        periods,
+      </if>
+      <if test="leftPeriods != null" >
+        left_periods,
+      </if>
+      <if test="buyoutCost != null" >
+        buyout_cost,
+      </if>
+      <if test="creditCost != null" >
+        credit_cost,
+      </if>
+      <if test="periods2 != null" >
+        periods2,
+      </if>
+      <if test="periodCost2 != null" >
+        period_cost2,
+      </if>
+      <if test="buyoutCost2 != null" >
+        buyout_cost2,
+      </if>
+      <if test="creattime != null" >
+        creattime,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="months != null" >
+        #{months,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="market != null" >
+        #{market,jdbcType=INTEGER},
+      </if>
+      <if test="deposit != null" >
+        #{deposit,jdbcType=INTEGER},
+      </if>
+      <if test="premium != null" >
+        #{premium,jdbcType=INTEGER},
+      </if>
+      <if test="freeRatio != null" >
+        #{freeRatio,jdbcType=INTEGER},
+      </if>
+      <if test="surplusRatio != null" >
+        #{surplusRatio,jdbcType=INTEGER},
+      </if>
+      <if test="guarantee != null" >
+        #{guarantee,jdbcType=INTEGER},
+      </if>
+      <if test="periodCost != null" >
+        #{periodCost,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null" >
+        #{periods,jdbcType=TINYINT},
+      </if>
+      <if test="leftPeriods != null" >
+        #{leftPeriods,jdbcType=TINYINT},
+      </if>
+      <if test="buyoutCost != null" >
+        #{buyoutCost,jdbcType=INTEGER},
+      </if>
+      <if test="creditCost != null" >
+        #{creditCost,jdbcType=INTEGER},
+      </if>
+      <if test="periods2 != null" >
+        #{periods2,jdbcType=INTEGER},
+      </if>
+      <if test="periodCost2 != null" >
+        #{periodCost2,jdbcType=INTEGER},
+      </if>
+      <if test="buyoutCost2 != null" >
+        #{buyoutCost2,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdd.risk.common.persistence.model.RiskOrderExample" resultType="java.lang.Integer" >
+    select count(*) from risk_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update risk_order
+    <set >
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.months != null" >
+        months = #{record.months,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=INTEGER},
+      </if>
+      <if test="record.brand != null" >
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null" >
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.market != null" >
+        market = #{record.market,jdbcType=INTEGER},
+      </if>
+      <if test="record.deposit != null" >
+        deposit = #{record.deposit,jdbcType=INTEGER},
+      </if>
+      <if test="record.premium != null" >
+        premium = #{record.premium,jdbcType=INTEGER},
+      </if>
+      <if test="record.freeRatio != null" >
+        free_ratio = #{record.freeRatio,jdbcType=INTEGER},
+      </if>
+      <if test="record.surplusRatio != null" >
+        surplus_ratio = #{record.surplusRatio,jdbcType=INTEGER},
+      </if>
+      <if test="record.guarantee != null" >
+        guarantee = #{record.guarantee,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodCost != null" >
+        period_cost = #{record.periodCost,jdbcType=INTEGER},
+      </if>
+      <if test="record.periods != null" >
+        periods = #{record.periods,jdbcType=TINYINT},
+      </if>
+      <if test="record.leftPeriods != null" >
+        left_periods = #{record.leftPeriods,jdbcType=TINYINT},
+      </if>
+      <if test="record.buyoutCost != null" >
+        buyout_cost = #{record.buyoutCost,jdbcType=INTEGER},
+      </if>
+      <if test="record.creditCost != null" >
+        credit_cost = #{record.creditCost,jdbcType=INTEGER},
+      </if>
+      <if test="record.periods2 != null" >
+        periods2 = #{record.periods2,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodCost2 != null" >
+        period_cost2 = #{record.periodCost2,jdbcType=INTEGER},
+      </if>
+      <if test="record.buyoutCost2 != null" >
+        buyout_cost2 = #{record.buyoutCost2,jdbcType=INTEGER},
+      </if>
+      <if test="record.creattime != null" >
+        creattime = #{record.creattime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update risk_order
+    set cid = #{record.cid,jdbcType=INTEGER},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      months = #{record.months,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=INTEGER},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      market = #{record.market,jdbcType=INTEGER},
+      deposit = #{record.deposit,jdbcType=INTEGER},
+      premium = #{record.premium,jdbcType=INTEGER},
+      free_ratio = #{record.freeRatio,jdbcType=INTEGER},
+      surplus_ratio = #{record.surplusRatio,jdbcType=INTEGER},
+      guarantee = #{record.guarantee,jdbcType=INTEGER},
+      period_cost = #{record.periodCost,jdbcType=INTEGER},
+      periods = #{record.periods,jdbcType=TINYINT},
+      left_periods = #{record.leftPeriods,jdbcType=TINYINT},
+      buyout_cost = #{record.buyoutCost,jdbcType=INTEGER},
+      credit_cost = #{record.creditCost,jdbcType=INTEGER},
+      periods2 = #{record.periods2,jdbcType=INTEGER},
+      period_cost2 = #{record.periodCost2,jdbcType=INTEGER},
+      buyout_cost2 = #{record.buyoutCost2,jdbcType=INTEGER},
+      creattime = #{record.creattime,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update risk_order
+    set cid = #{record.cid,jdbcType=INTEGER},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      months = #{record.months,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=INTEGER},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      market = #{record.market,jdbcType=INTEGER},
+      deposit = #{record.deposit,jdbcType=INTEGER},
+      premium = #{record.premium,jdbcType=INTEGER},
+      free_ratio = #{record.freeRatio,jdbcType=INTEGER},
+      surplus_ratio = #{record.surplusRatio,jdbcType=INTEGER},
+      guarantee = #{record.guarantee,jdbcType=INTEGER},
+      period_cost = #{record.periodCost,jdbcType=INTEGER},
+      periods = #{record.periods,jdbcType=TINYINT},
+      left_periods = #{record.leftPeriods,jdbcType=TINYINT},
+      buyout_cost = #{record.buyoutCost,jdbcType=INTEGER},
+      credit_cost = #{record.creditCost,jdbcType=INTEGER},
+      periods2 = #{record.periods2,jdbcType=INTEGER},
+      period_cost2 = #{record.periodCost2,jdbcType=INTEGER},
+      buyout_cost2 = #{record.buyoutCost2,jdbcType=INTEGER},
+      creattime = #{record.creattime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdd.risk.common.persistence.model.RiskOrder" >
+    update risk_order
+    <set >
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="months != null" >
+        months = #{months,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=INTEGER},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="market != null" >
+        market = #{market,jdbcType=INTEGER},
+      </if>
+      <if test="deposit != null" >
+        deposit = #{deposit,jdbcType=INTEGER},
+      </if>
+      <if test="premium != null" >
+        premium = #{premium,jdbcType=INTEGER},
+      </if>
+      <if test="freeRatio != null" >
+        free_ratio = #{freeRatio,jdbcType=INTEGER},
+      </if>
+      <if test="surplusRatio != null" >
+        surplus_ratio = #{surplusRatio,jdbcType=INTEGER},
+      </if>
+      <if test="guarantee != null" >
+        guarantee = #{guarantee,jdbcType=INTEGER},
+      </if>
+      <if test="periodCost != null" >
+        period_cost = #{periodCost,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null" >
+        periods = #{periods,jdbcType=TINYINT},
+      </if>
+      <if test="leftPeriods != null" >
+        left_periods = #{leftPeriods,jdbcType=TINYINT},
+      </if>
+      <if test="buyoutCost != null" >
+        buyout_cost = #{buyoutCost,jdbcType=INTEGER},
+      </if>
+      <if test="creditCost != null" >
+        credit_cost = #{creditCost,jdbcType=INTEGER},
+      </if>
+      <if test="periods2 != null" >
+        periods2 = #{periods2,jdbcType=INTEGER},
+      </if>
+      <if test="periodCost2 != null" >
+        period_cost2 = #{periodCost2,jdbcType=INTEGER},
+      </if>
+      <if test="buyoutCost2 != null" >
+        buyout_cost2 = #{buyoutCost2,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        creattime = #{creattime,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdd.risk.common.persistence.model.RiskOrder" >
+    update risk_order
+    set orderid = #{orderid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      months = #{months,jdbcType=INTEGER},
+      money = #{money,jdbcType=INTEGER},
+      brand = #{brand,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      market = #{market,jdbcType=INTEGER},
+      deposit = #{deposit,jdbcType=INTEGER},
+      premium = #{premium,jdbcType=INTEGER},
+      free_ratio = #{freeRatio,jdbcType=INTEGER},
+      surplus_ratio = #{surplusRatio,jdbcType=INTEGER},
+      guarantee = #{guarantee,jdbcType=INTEGER},
+      period_cost = #{periodCost,jdbcType=INTEGER},
+      periods = #{periods,jdbcType=TINYINT},
+      left_periods = #{leftPeriods,jdbcType=TINYINT},
+      buyout_cost = #{buyoutCost,jdbcType=INTEGER},
+      credit_cost = #{creditCost,jdbcType=INTEGER},
+      periods2 = #{periods2,jdbcType=INTEGER},
+      period_cost2 = #{periodCost2,jdbcType=INTEGER},
+      buyout_cost2 = #{buyoutCost2,jdbcType=INTEGER},
+      creattime = #{creattime,jdbcType=VARCHAR},
+      address = #{address,jdbcType=LONGVARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdd.risk.common.persistence.model.RiskOrder" >
+    update risk_order
+    set orderid = #{orderid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      months = #{months,jdbcType=INTEGER},
+      money = #{money,jdbcType=INTEGER},
+      brand = #{brand,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      market = #{market,jdbcType=INTEGER},
+      deposit = #{deposit,jdbcType=INTEGER},
+      premium = #{premium,jdbcType=INTEGER},
+      free_ratio = #{freeRatio,jdbcType=INTEGER},
+      surplus_ratio = #{surplusRatio,jdbcType=INTEGER},
+      guarantee = #{guarantee,jdbcType=INTEGER},
+      period_cost = #{periodCost,jdbcType=INTEGER},
+      periods = #{periods,jdbcType=TINYINT},
+      left_periods = #{leftPeriods,jdbcType=TINYINT},
+      buyout_cost = #{buyoutCost,jdbcType=INTEGER},
+      credit_cost = #{creditCost,jdbcType=INTEGER},
+      periods2 = #{periods2,jdbcType=INTEGER},
+      period_cost2 = #{periodCost2,jdbcType=INTEGER},
+      buyout_cost2 = #{buyoutCost2,jdbcType=INTEGER},
+      creattime = #{creattime,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

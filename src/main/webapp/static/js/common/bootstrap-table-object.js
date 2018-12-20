@@ -117,7 +117,6 @@
             }
         }
     };
-
     window.BSTable = BSTable;
 
 }());

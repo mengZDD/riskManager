@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdd.risk.modular.system.dao.UserItemMapper" >
+  <resultMap id="BaseResultMap" type="com.zdd.risk.common.persistence.model.UserItem" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="idcard_no" property="idcardNo" jdbcType="VARCHAR" />
+    <result column="idcard_front" property="idcardFront" jdbcType="VARCHAR" />
+    <result column="idcard_back" property="idcardBack" jdbcType="VARCHAR" />
+    <result column="idcard_address" property="idcardAddress" jdbcType="VARCHAR" />
+    <result column="idcard_date" property="idcardDate" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="periods" property="periods" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="creattime" property="creattime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zdd.risk.common.persistence.model.UserItem" extends="BaseResultMap" >
+    <result column="linkdata" property="linkdata" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userid, cid, account, name, age, idcard_no, idcard_front, idcard_back, idcard_address, 
+    idcard_date, type, periods, status, update_time, creattime
+  </sql>
+  <sql id="Blob_Column_List" >
+    linkdata
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zdd.risk.common.persistence.model.UserItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdd.risk.common.persistence.model.UserItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_item
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_item
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdd.risk.common.persistence.model.UserItemExample" >
+    delete from user_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdd.risk.common.persistence.model.UserItem" >
+    insert into user_item (userid, cid, account, 
+      name, age, idcard_no, 
+      idcard_front, idcard_back, idcard_address, 
+      idcard_date, type, periods, 
+      status, update_time, creattime, 
+      linkdata)
+    values (#{userid,jdbcType=VARCHAR}, #{cid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{idcardNo,jdbcType=VARCHAR}, 
+      #{idcardFront,jdbcType=VARCHAR}, #{idcardBack,jdbcType=VARCHAR}, #{idcardAddress,jdbcType=VARCHAR}, 
+      #{idcardDate,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{periods,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{updateTime,jdbcType=VARCHAR}, #{creattime,jdbcType=VARCHAR}, 
+      #{linkdata,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdd.risk.common.persistence.model.UserItem" >
+    insert into user_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no,
+      </if>
+      <if test="idcardFront != null" >
+        idcard_front,
+      </if>
+      <if test="idcardBack != null" >
+        idcard_back,
+      </if>
+      <if test="idcardAddress != null" >
+        idcard_address,
+      </if>
+      <if test="idcardDate != null" >
+        idcard_date,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="periods != null" >
+        periods,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="creattime != null" >
+        creattime,
+      </if>
+      <if test="linkdata != null" >
+        linkdata,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="idcardNo != null" >
+        #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardFront != null" >
+        #{idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardBack != null" >
+        #{idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardAddress != null" >
+        #{idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardDate != null" >
+        #{idcardDate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null" >
+        #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=VARCHAR},
+      </if>
+      <if test="linkdata != null" >
+        #{linkdata,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdd.risk.common.persistence.model.UserItemExample" resultType="java.lang.Integer" >
+    select count(*) from user_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_item
+    <set >
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null" >
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.idcardNo != null" >
+        idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardFront != null" >
+        idcard_front = #{record.idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardBack != null" >
+        idcard_back = #{record.idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardAddress != null" >
+        idcard_address = #{record.idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardDate != null" >
+        idcard_date = #{record.idcardDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.periods != null" >
+        periods = #{record.periods,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creattime != null" >
+        creattime = #{record.creattime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkdata != null" >
+        linkdata = #{record.linkdata,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update user_item
+    set userid = #{record.userid,jdbcType=VARCHAR},
+      cid = #{record.cid,jdbcType=INTEGER},
+      account = #{record.account,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      idcard_front = #{record.idcardFront,jdbcType=VARCHAR},
+      idcard_back = #{record.idcardBack,jdbcType=VARCHAR},
+      idcard_address = #{record.idcardAddress,jdbcType=VARCHAR},
+      idcard_date = #{record.idcardDate,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      periods = #{record.periods,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=VARCHAR},
+      creattime = #{record.creattime,jdbcType=VARCHAR},
+      linkdata = #{record.linkdata,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_item
+    set userid = #{record.userid,jdbcType=VARCHAR},
+      cid = #{record.cid,jdbcType=INTEGER},
+      account = #{record.account,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      idcard_front = #{record.idcardFront,jdbcType=VARCHAR},
+      idcard_back = #{record.idcardBack,jdbcType=VARCHAR},
+      idcard_address = #{record.idcardAddress,jdbcType=VARCHAR},
+      idcard_date = #{record.idcardDate,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      periods = #{record.periods,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=VARCHAR},
+      creattime = #{record.creattime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdd.risk.common.persistence.model.UserItem" >
+    update user_item
+    <set >
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardFront != null" >
+        idcard_front = #{idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardBack != null" >
+        idcard_back = #{idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardAddress != null" >
+        idcard_address = #{idcardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardDate != null" >
+        idcard_date = #{idcardDate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="periods != null" >
+        periods = #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null" >
+        creattime = #{creattime,jdbcType=VARCHAR},
+      </if>
+      <if test="linkdata != null" >
+        linkdata = #{linkdata,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdd.risk.common.persistence.model.UserItem" >
+    update user_item
+    set cid = #{cid,jdbcType=INTEGER},
+      account = #{account,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      idcard_front = #{idcardFront,jdbcType=VARCHAR},
+      idcard_back = #{idcardBack,jdbcType=VARCHAR},
+      idcard_address = #{idcardAddress,jdbcType=VARCHAR},
+      idcard_date = #{idcardDate,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      periods = #{periods,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      creattime = #{creattime,jdbcType=VARCHAR},
+      linkdata = #{linkdata,jdbcType=LONGVARCHAR}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdd.risk.common.persistence.model.UserItem" >
+    update user_item
+    set cid = #{cid,jdbcType=INTEGER},
+      account = #{account,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      idcard_front = #{idcardFront,jdbcType=VARCHAR},
+      idcard_back = #{idcardBack,jdbcType=VARCHAR},
+      idcard_address = #{idcardAddress,jdbcType=VARCHAR},
+      idcard_date = #{idcardDate,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      periods = #{periods,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      creattime = #{creattime,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>
